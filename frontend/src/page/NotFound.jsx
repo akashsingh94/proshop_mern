@@ -6,7 +6,7 @@ import "./NotFound.css";
 export function NotFound() {
   return (
     <div className="not-found-wrapper">
-      <div className="not-found-content ">
+      <div className="not-found-content">
         <Typography variant="h1">404</Typography>
         <Typography variant="h6">
           The page you’re looking for doesn’t exist.

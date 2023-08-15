@@ -1,8 +1,17 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 import "./App.css";
 import { Routers } from "./Routers";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const darkTheme = createTheme({
   palette: {
@@ -23,12 +32,14 @@ const darkTheme = createTheme({
 
 function App() {
   return (
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <div className="app">
-        <Routers />
-      </div>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
+        <div className="app">
+          <Routers />
+        </div>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
 

@@ -1,0 +1,29 @@
+.product-details-wrapper {
+  display: flex;
+  gap: 20px;
+  padding: 15px;
+  max-width: 70%;
+}
+
+.product-image {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.image {
+  width: 450px;
+  border-radius: 5px;
+}
+
+.product-details-page {
+  display: flex;
+  justify-content: center;
+}
+
+.product-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
