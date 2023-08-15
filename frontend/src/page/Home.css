@@ -1,0 +1,12 @@
+.products {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fill, 300px);
+  width: 100%;
+}
+
+.products-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
