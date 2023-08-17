@@ -1,17 +1,15 @@
 import express from "express";
-import { products } from "./products.js";
+import dotenv from "dotenv";
+dotenv.config();
+
+import { connectDb } from "./config/dbConnect.js";
+import productRouters from "./routes/productRoutes.js";
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
-app.get("/api/products", (req, res) => {
-  res.json(products);
+app.use("/api/products", productRouters);
+app.listen(PORT, () => {
+  console.log(`app is running on port ${PORT}`);
+  connectDb();
 });
-
-app.get("/api/product/:id", (req, res) => {
-  const product = products.find((p) => p._id === req.params.id);
-  if (!product) return res.status(404).json({ msg: "product not found" });
-  return res.json(product);
-});
-
-app.listen(PORT, () => console.log(`app is running on port ${PORT}`));

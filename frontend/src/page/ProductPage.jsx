@@ -9,7 +9,7 @@ import { ServerError } from "../components/feedback/ServerError";
 export function ProductPage() {
   const { id } = useParams();
   const { isLoading, error, data, refetch } = useQuery(["product", id], () =>
-    fetch(`/api/product/${id}`).then((res) => res.json())
+    fetch(`/api/products/${id}`).then((res) => res.json())
   );
 
   if (isLoading) return <Spinner useBackdrop />;
