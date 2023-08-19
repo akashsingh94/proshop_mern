@@ -7,10 +7,13 @@ import LoginIcon from "@mui/icons-material/Login";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge from "@mui/material/Badge";
 import { Link } from "react-router-dom";
+import { useAtom } from "jotai/react";
 
+import { cartItemsAtom } from "../../atom/cartAtoms";
 import "./AppHeader.css";
 
 export function AppHeader() {
+  const [cartItems] = useAtom(cartItemsAtom);
   return (
     <Box className="app-header" sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -37,7 +40,10 @@ export function AppHeader() {
             <Button
               color="inherit"
               startIcon={
-                <Badge badgeContent={4} color="secondary">
+                <Badge
+                  badgeContent={cartItems.length || undefined}
+                  color="secondary"
+                >
                   <ShoppingCartIcon color="action" />
                 </Badge>
               }

@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 
 import { AppHeader } from "../components/header/AppHeader";
+import { Toaster } from "../components/feedback/Toaster";
 import "./Layout.css";
 
 export function Layout() {
@@ -14,6 +15,7 @@ export function Layout() {
       <footer className="app-footer">
         <p>&copy; {year} ProShop</p>
       </footer>
+      <Toaster />
     </div>
   );
 }
