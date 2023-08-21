@@ -9,11 +9,11 @@ import Badge from "@mui/material/Badge";
 import { Link } from "react-router-dom";
 import { useAtom } from "jotai/react";
 
-import { cartItemsAtom } from "../../atom/cartAtoms";
+import { totalCartItemsAtom } from "../../atom/cartAtoms";
 import "./AppHeader.css";
 
 export function AppHeader() {
-  const [cartItems] = useAtom(cartItemsAtom);
+  const [totalItems] = useAtom(totalCartItemsAtom);
   return (
     <Box className="app-header" sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -39,11 +39,10 @@ export function AppHeader() {
           <div className="app-header__actions">
             <Button
               color="inherit"
+              component={Link}
+              to="/cart"
               startIcon={
-                <Badge
-                  badgeContent={cartItems.length || undefined}
-                  color="secondary"
-                >
+                <Badge badgeContent={totalItems || undefined} color="secondary">
                   <ShoppingCartIcon color="action" />
                 </Badge>
               }
@@ -53,6 +52,8 @@ export function AppHeader() {
             <Button
               color="inherit"
               variant="outlined"
+              component={Link}
+              to="/login"
               startIcon={<LoginIcon />}
             >
               Login

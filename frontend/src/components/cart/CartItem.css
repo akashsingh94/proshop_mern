@@ -1,0 +1,18 @@
+.cart-item {
+  display: flex;
+  height: 150px;
+  align-items: center;
+  /* gap: 50px; */
+  justify-content: space-between;
+}
+
+.cart-item-image {
+  height: 150px;
+  border-radius: 5px;
+}
+
+.cart-item-name-image {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}

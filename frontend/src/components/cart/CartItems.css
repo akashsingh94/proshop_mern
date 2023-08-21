@@ -1,0 +1,11 @@
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cart-items-wrapper {
+  display: grid;
+  grid-template-columns: 1fr minmax(345px, 500px);
+  gap: 55px;
+}

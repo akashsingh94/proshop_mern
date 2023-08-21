@@ -1,0 +1,14 @@
+.register-wrapper {
+  padding: 15px;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.register-paper {
+  display: grid;
+  gap: 20px;
+  min-width: 450px;
+}
