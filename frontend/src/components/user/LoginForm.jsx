@@ -5,15 +5,17 @@ import { useCallback, useState } from "react";
 
 import { getFormErrors } from "../../utils/formUtil";
 
-export function LoginForm() {
-  const [formData, setFormData] = useState({
+const defaultFormData = {
+  email: "",
+  password: "",
+  errors: {
     email: "",
     password: "",
-    errors: {
-      email: "",
-      password: "",
-    },
-  });
+  },
+};
+
+export function LoginForm() {
+  const [formData, setFormData] = useState(defaultFormData);
 
   const handleLogin = useCallback(
     (e) => {
