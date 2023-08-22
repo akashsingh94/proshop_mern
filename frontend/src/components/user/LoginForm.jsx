@@ -2,6 +2,8 @@ import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useCallback, useState } from "react";
+import { useMutation } from "react-query";
+import axios from "axios";
 
 import { getFormErrors } from "../../utils/formUtil";
 
@@ -16,6 +18,36 @@ const defaultFormData = {
 
 export function LoginForm() {
   const [formData, setFormData] = useState(defaultFormData);
+  const mutation = useMutation(
+    (userData) => {
+      return axios.post("/api/users/login", userData, {
+        headers: { "Content-Type": "application/json" },
+      });
+    },
+    {
+      onError: (error) => {
+        const errorMsg = error.response?.data?.msg;
+        const invalidUser =
+          (errorMsg || "").indexOf("invalid email or password") > -1;
+
+        setFormData((pre) => ({
+          ...pre,
+          errors: {
+            ...pre.errors,
+            password: invalidUser
+              ? "invalid email or password"
+              : "error: unable to login",
+          },
+        }));
+      },
+      onSuccess: () => {
+        setFormData(defaultFormData);
+      },
+      onSettled: () => {
+        mutation.reset();
+      },
+    }
+  );
 
   const handleLogin = useCallback(
     (e) => {
@@ -25,9 +57,11 @@ export function LoginForm() {
         setFormData((pre) => ({ ...pre, errors }));
         return;
       }
-      alert("kar denge tumko loggedIn");
+      const userData = { ...formData };
+      delete userData.errors;
+      mutation.mutate(userData);
     },
-    [formData]
+    [formData, mutation]
   );
 
   const handleChange = useCallback((e) => {
@@ -66,7 +100,12 @@ export function LoginForm() {
         helperText={formData.errors.password}
         error={!!formData.errors.password}
       />
-      <Button variant="contained" type="submit" onClick={handleLogin}>
+      <Button
+        disabled={mutation.isLoading}
+        variant="contained"
+        type="submit"
+        onClick={handleLogin}
+      >
         Login
       </Button>
     </Box>

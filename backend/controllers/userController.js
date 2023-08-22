@@ -1,9 +1,30 @@
-import User from "../models/User.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
-export const loginUser = (req, res) => {
+import User from "../models/User.js";
+
+export const loginUser = async (req, res) => {
   const { email, password } = req.body;
-  res.json({ msg: "user logged in" });
+  try {
+    const userDoc = await User.findOne({ email });
+    if (!userDoc || !(await userDoc.matchPassword(password)))
+      return res.status(401).json({ msg: "invalid email or password" });
+    const token = jwt.sign(
+      { userId: userDoc._id, name: userDoc.name },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
+    res.cookie("jwt", token, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60, //60 minutes
+    });
+    return res.json({ msg: "logging successful" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ msg: "error while logging-In user" });
+  }
 };
 
 export const registerUser = async (req, res) => {
@@ -11,7 +32,7 @@ export const registerUser = async (req, res) => {
     const { password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
     await User.create({ ...req.body, password: hashedPassword });
-    res.json({ msg: "user register success" });
+    res.status(201).json({ msg: "user register success" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: "user registration failed" });
