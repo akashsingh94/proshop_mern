@@ -78,7 +78,7 @@ export function LoginForm() {
   }, []);
 
   return (
-    <Box component="form" noValidate autoComplete="off" className="login-form">
+    <Box component="form" noValidate autoComplete="off" className="form">
       <TextField
         name="email"
         value={formData.email}

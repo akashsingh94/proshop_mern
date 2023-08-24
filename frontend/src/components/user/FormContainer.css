@@ -1,0 +1,5 @@
+.form-paper {
+  display: grid;
+  gap: 20px;
+  min-width: 450px;
+}

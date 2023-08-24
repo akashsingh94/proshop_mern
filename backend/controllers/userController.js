@@ -1,4 +1,3 @@
-import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 import User from "../models/User.js";
@@ -29,9 +28,12 @@ export const loginUser = async (req, res) => {
 
 export const registerUser = async (req, res) => {
   try {
-    const { password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-    await User.create({ ...req.body, password: hashedPassword });
+    const { email } = req.body;
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+      return res.status(400).json({ msg: "user already registered" });
+    }
+    await User.create(req.body);
     res.status(201).json({ msg: "user register success" });
   } catch (error) {
     console.log(error);
@@ -40,5 +42,14 @@ export const registerUser = async (req, res) => {
 };
 
 export const logoutUser = (req, res) => {
-  res.json({ msg: "user logged out" });
+  try {
+    res.cookie("jwt", "", {
+      httpOnly: true,
+      expires: new Date(0),
+    });
+    return res.json({ msg: "logout successfully" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: "user logout failed" });
+  }
 };

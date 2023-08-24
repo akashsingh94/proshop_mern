@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useCallback, useState } from "react";
 import { useMutation } from "react-query";
+import axios from "axios";
 
 import { getFormErrors } from "../../utils/formUtil";
 import { Spinner } from "../feedback/Spinner";
@@ -26,9 +27,7 @@ export function RegisterForm() {
 
   const mutation = useMutation(
     (userData) => {
-      return fetch("/api/users/register", {
-        method: "POST",
-        body: JSON.stringify(userData),
+      return axios.post("/api/users/register", userData, {
         headers: { "Content-Type": "application/json" },
       });
     },
@@ -82,12 +81,7 @@ export function RegisterForm() {
 
   return (
     <>
-      <Box
-        component="form"
-        noValidate
-        autoComplete="off"
-        className="login-form"
-      >
+      <Box component="form" noValidate autoComplete="off" className="form">
         <TextField
           name="name"
           value={formData.name}
