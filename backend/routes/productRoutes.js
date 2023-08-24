@@ -5,9 +5,9 @@ import {
   getProductById,
 } from "../controllers/productController.js";
 
-const router = express.Router();
+const productRouter = express.Router();
 
-router.route("/").get(getAllProducts);
-router.get("/:id", getProductById);
+productRouter.route("/").get(getAllProducts);
+productRouter.get("/:id", getProductById);
 
-export default router;
+export default productRouter;

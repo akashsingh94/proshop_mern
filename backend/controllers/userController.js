@@ -9,7 +9,7 @@ export const loginUser = async (req, res) => {
     if (!userDoc || !(await userDoc.matchPassword(password)))
       return res.status(401).json({ msg: "invalid email or password" });
     const token = jwt.sign(
-      { userId: userDoc._id, name: userDoc.name },
+      { userId: userDoc._id, name: userDoc.name, isAdmin: userDoc.isAdmin },
       process.env.JWT_SECRET,
       {
         expiresIn: "1h",
@@ -22,6 +22,7 @@ export const loginUser = async (req, res) => {
     return res.json({
       email: userDoc.email,
       name: userDoc.name,
+      isAdmin: userDoc.isAdmin,
     });
   } catch (error) {
     console.log(error);

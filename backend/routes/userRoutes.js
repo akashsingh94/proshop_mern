@@ -5,10 +5,10 @@ import {
   registerUser,
 } from "../controllers/userController.js";
 
-const router1 = express.Router();
+const userRouter = express.Router();
 
-router1.post("/login", loginUser);
-router1.post("/register", registerUser);
-router1.post("/logout", logoutUser);
+userRouter.post("/login", loginUser);
+userRouter.post("/register", registerUser);
+userRouter.post("/logout", logoutUser);
 
-export default router1;
+export default userRouter;
