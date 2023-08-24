@@ -1,5 +1,5 @@
 import Button from "@mui/material/Button";
-import LoginIcon from "@mui/icons-material/Login";
+
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge from "@mui/material/Badge";
 import { useAtom } from "jotai/react";
@@ -7,6 +7,7 @@ import { Link, useLocation } from "react-router-dom";
 
 import { totalCartItemsAtom } from "../../atom/cartAtoms";
 import "./AppHeaderActions.css";
+import { LoginGreetingButton } from "./LoginGreetingButton";
 
 export function AppHeaderActions() {
   const [totalItems] = useAtom(totalCartItemsAtom);
@@ -30,15 +31,7 @@ export function AppHeaderActions() {
       >
         Cart
       </Button>
-      <Button
-        color="inherit"
-        variant="outlined"
-        component={Link}
-        to="/login"
-        startIcon={<LoginIcon />}
-      >
-        Login
-      </Button>
+      <LoginGreetingButton />
     </div>
   );
 }

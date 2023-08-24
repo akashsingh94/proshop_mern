@@ -1,11 +1,13 @@
 import { Typography } from "@mui/material";
 import MuiLink from "@mui/material/Link";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { LoginForm } from "./LoginForm";
 import { FormContainer } from "./FormContainer";
 
 export default function Login() {
+  const { search } = useLocation();
+
   return (
     <FormContainer title="Login">
       <LoginForm />
@@ -15,7 +17,7 @@ export default function Login() {
           color="secondary"
           component={Link}
           variant="body1"
-          to="/register"
+          to={`/register${search}`}
         >
           Register
         </MuiLink>{" "}

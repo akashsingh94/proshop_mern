@@ -4,8 +4,12 @@ import TextField from "@mui/material/TextField";
 import { useCallback, useState } from "react";
 import { useMutation } from "react-query";
 import axios from "axios";
+import { useAtom } from "jotai";
+import { useNavigate } from "react-router-dom";
 
 import { getFormErrors } from "../../utils/formUtil";
+import { useQuery } from "../../hooks/useQuery";
+import { userDataAtom } from "../../atom/authAtom";
 
 const defaultFormData = {
   email: "",
@@ -18,6 +22,10 @@ const defaultFormData = {
 
 export function LoginForm() {
   const [formData, setFormData] = useState(defaultFormData);
+  const [, setUserData] = useAtom(userDataAtom);
+  const returnUrl = useQuery("returnUrl");
+  const navigate = useNavigate();
+
   const mutation = useMutation(
     (userData) => {
       return axios.post("/api/users/login", userData, {
@@ -40,8 +48,10 @@ export function LoginForm() {
           },
         }));
       },
-      onSuccess: () => {
-        setFormData(defaultFormData);
+      onSuccess: (res) => {
+        const { data } = res;
+        setUserData(data);
+        navigate(returnUrl);
       },
       onSettled: () => {
         mutation.reset();

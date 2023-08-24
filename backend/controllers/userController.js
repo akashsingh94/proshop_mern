@@ -19,7 +19,10 @@ export const loginUser = async (req, res) => {
       httpOnly: true,
       maxAge: 1000 * 60 * 60, //60 minutes
     });
-    return res.json({ msg: "logging successful" });
+    return res.json({
+      email: userDoc.email,
+      name: userDoc.name,
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ msg: "error while logging-In user" });
