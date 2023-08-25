@@ -11,7 +11,7 @@ export function ProductDetails({ product }) {
 
   return (
     <div className="product-details-page">
-      <Paper className="product-details-wrapper">
+      <Paper sx={{ m: 3 }} className="product-details-wrapper">
         <div className="product-image">
           <img className="image" src={image} alt={name} />
           <AddToCartButton product={product} isOutOfStock={isOutOfStock} />
