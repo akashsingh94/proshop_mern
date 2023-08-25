@@ -7,6 +7,8 @@ import { NotFound } from "./page/NotFound";
 import { CartPage } from "./page/CartPage";
 import { LoginPage } from "./page/LoginPage";
 import { RegisterPage } from "./page/RegisterPage";
+import { ProfilePage } from "./page/ProfilePage";
+import { ProtectedRoute } from "./ProtectedRoute";
 
 export function Routers() {
   return (
@@ -18,6 +20,15 @@ export function Routers() {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
+
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

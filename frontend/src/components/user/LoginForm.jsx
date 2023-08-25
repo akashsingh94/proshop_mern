@@ -23,7 +23,7 @@ const defaultFormData = {
 export function LoginForm() {
   const [formData, setFormData] = useState(defaultFormData);
   const [, setUserData] = useAtom(userDataAtom);
-  const returnUrl = useQuery("returnUrl");
+  const returnUrl = useQuery("returnUrl") || "/";
   const navigate = useNavigate();
 
   const mutation = useMutation(
