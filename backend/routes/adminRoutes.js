@@ -1,10 +1,16 @@
 import express from "express";
 
 import { isAdminUser } from "../middleware/authMiddleware.js";
-import { getAllProductsForAdmin } from "../controllers/adminController.js";
+import {
+  addNewProduct,
+  getAllProductsForAdmin,
+} from "../controllers/adminController.js";
 
 const adminRouter = express.Router();
 
-adminRouter.get("/products", isAdminUser, getAllProductsForAdmin);
+adminRouter
+  .route("/products")
+  .get(isAdminUser, getAllProductsForAdmin)
+  .post(isAdminUser, addNewProduct);
 
 export default adminRouter;

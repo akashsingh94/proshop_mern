@@ -9,6 +9,7 @@ import { LoginPage } from "./page/LoginPage";
 import { RegisterPage } from "./page/RegisterPage";
 import { ProfilePage } from "./page/ProfilePage";
 import { ProtectedRoute } from "./ProtectedRoute";
+import { CheckOutPage } from "./page/CheckOutPage";
 
 export function Routers() {
   return (
@@ -23,6 +24,7 @@ export function Routers() {
           {/* private routes */}
           <Route path="" element={<ProtectedRoute />}>
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/check-out" element={<CheckOutPage />} />
           </Route>
 
           <Route path="*" element={<NotFound />} />
