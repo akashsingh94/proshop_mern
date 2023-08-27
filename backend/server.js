@@ -8,6 +8,7 @@ import productRouters from "./routes/productRoutes.js";
 import userRouters from "./routes/userRoutes.js";
 import profileRouters from "./routes/profileRouter.js";
 import adminRouters from "./routes/adminRoutes.js";
+import cartRouters from "./routes/cartRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -23,6 +24,7 @@ app.use("/api/products", productRouters);
 app.use("/api/users", userRouters);
 app.use("/api/profile", profileRouters);
 app.use("/api/admin", adminRouters);
+app.use("/api/cart", cartRouters);
 
 app.listen(PORT, () => {
   console.log(`app is running on port ${PORT}`);
